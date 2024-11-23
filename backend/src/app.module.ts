@@ -1,15 +1,17 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { User } from './users/entities/user.model';
-import { Post } from './posts/entities/post.model';
-import { UsersModule } from './users/users.module';
+import { Posts } from './posts/entities/posts.model';
 import { PostsModule } from './posts/posts.module';
 import { AuthModule } from './auth/auth.module';
+import { Tokens } from './auth/entities/tokens.model';
+import { ConfigModule } from '@nestjs/config';
+import { Users } from './auth/entities/users.model';
 
 @Module({
   imports: [
+    ConfigModule.forRoot({
+      envFilePath: '.env',
+    }),
     TypeOrmModule.forRoot({
       type: 'mysql',
       host: 'localhost',
@@ -17,14 +19,11 @@ import { AuthModule } from './auth/auth.module';
       username: 'root',
       password: 'root',
       database: 'blog',
-      entities: [User, Post],
+      entities: [Users, Posts, Tokens],
       synchronize: true,
     }),
-    UsersModule,
     PostsModule,
     AuthModule,
   ],
-  controllers: [AppController],
-  providers: [AppService],
 })
 export class AppModule {}

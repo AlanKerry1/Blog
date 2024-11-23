@@ -1,8 +1,8 @@
-import { Entity, Column, PrimaryGeneratedColumn, OneToOne, JoinColumn } from 'typeorm';
-import { User } from '../../users/entities/user.model';
+import { Users } from 'src/auth/entities/users.model';
+import { Entity, Column, PrimaryGeneratedColumn, OneToOne, JoinColumn, ManyToOne } from 'typeorm';
 
 @Entity()
-export class Post {
+export class Posts {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -18,7 +18,7 @@ export class Post {
   @Column({nullable: true, type: "date"})
   date: string;
 
-  @OneToOne(() => User)
+  @ManyToOne(() => Users)
   @JoinColumn()
-  uid: number;
+  user: number;
 }

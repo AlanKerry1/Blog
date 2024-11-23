@@ -1,9 +1,13 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
+import * as cookieParser from "cookie-parser";
+import { ValidationPipe } from './pipes/validation.pipe';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  app.setGlobalPrefix('blog_api');
-  await app.listen(3000);
+  app.setGlobalPrefix('api');
+  app.use(cookieParser())
+  app.useGlobalPipes(new ValidationPipe());
+  await app.listen(4000);
 }
 bootstrap();

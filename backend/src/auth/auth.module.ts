@@ -3,12 +3,17 @@ import { AuthService } from './auth.service';
 import { AuthController } from './auth.controller';
 import { TokensService } from './tokens/tokens.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { User } from 'src/users/entities/user.model';
 import { JwtService } from '@nestjs/jwt';
+import { ConfigModule } from '@nestjs/config';
+import { Tokens } from './entities/tokens.model';
+import { Users } from './entities/users.model';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([User])
+    ConfigModule.forRoot({
+      envFilePath: '.env',
+    }),
+    TypeOrmModule.forFeature([Users, Tokens])
   ],
   controllers: [AuthController],
   providers: [AuthService, TokensService, JwtService],
