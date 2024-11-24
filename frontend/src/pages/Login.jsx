@@ -6,7 +6,6 @@ import { AuthContext } from "../context/authContext";
 
 const Login = () => {
     const [inputs, setInputs] = useState({
-        username: "",
         email: "",
         password: "",
     });
@@ -24,7 +23,8 @@ const Login = () => {
             await login(inputs);
             navigate("/");
         } catch (err) {
-            setError(err.response.data);
+            console.log(err);
+            setError(err.response.data.message);
         }
     };
 
@@ -35,8 +35,8 @@ const Login = () => {
                 <input
                     required
                     type="text"
-                    placeholder="username"
-                    name="username"
+                    placeholder="email"
+                    name="email"
                     onChange={handleChange}
                 />
                 <input

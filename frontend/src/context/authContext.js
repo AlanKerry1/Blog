@@ -9,12 +9,11 @@ export const AuthContextProvider = ({children}) => {
 
     const login = async (inputs) => {
         const res = await axios.post("/auth/login", inputs);
-        const { decodedToken } = useJwt(res.data.accessToken);
-        setCurrentUser(decodedToken);
+        setCurrentUser(res.data.user);
     }
 
-    const logout = async (inputs) => {
-        await axios.post("/auth/logout", inputs);
+    const logout = async () => {
+        await axios.post("/auth/logout");
         setCurrentUser(null);
     }
 
