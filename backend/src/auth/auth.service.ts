@@ -28,7 +28,7 @@ export class AuthService {
     const tokens = this.tokenService.generateTokens({...userPayload});
     await this.tokenService.saveToken(userPayload.id, tokens.refreshToken);
 
-    return tokens;
+    return {...tokens, user: userPayload};
   }
 
   async login(loginDto: LogDto) {
@@ -47,7 +47,7 @@ export class AuthService {
     const tokens = this.tokenService.generateTokens({...userPayload});
     await this.tokenService.saveToken(userPayload.id, tokens.refreshToken);
 
-    return tokens;
+    return {...tokens, user: userPayload};
   }
 
   async logout(refreshToken: string) {
@@ -71,6 +71,6 @@ export class AuthService {
     const tokens = this.tokenService.generateTokens({...userPayload});
     await this.tokenService.saveToken(userPayload.id, tokens.refreshToken);
 
-    return tokens;
+    return {...tokens, user: userPayload};
   }
 }
