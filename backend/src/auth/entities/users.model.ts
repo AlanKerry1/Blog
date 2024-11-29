@@ -8,6 +8,7 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { Tokens } from './tokens.model';
+import { Posts } from 'src/posts/entities/posts.model';
 
 @Entity()
 export class Users {
@@ -25,4 +26,7 @@ export class Users {
 
     @OneToMany(() => Tokens, (token) => token.user)
     tokens: Tokens[];
+
+    @OneToMany(() => Posts, (post) => post.user)
+    posts: Posts[];
 }

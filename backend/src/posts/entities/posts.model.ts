@@ -1,5 +1,14 @@
 import { Users } from 'src/auth/entities/users.model';
-import { Entity, Column, PrimaryGeneratedColumn, OneToOne, JoinColumn, ManyToOne } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, OneToOne, JoinColumn, ManyToOne, CreateDateColumn } from 'typeorm';
+
+enum Category {
+    ART = "art",
+    SCIENCE = "science",
+    TECHNOLOGY = "technology",
+    CINEMA = "cinema",
+    DESIGN = "design",
+    FOOD = "food"
+}
 
 @Entity()
 export class Posts {
@@ -15,10 +24,16 @@ export class Posts {
   @Column({nullable: false})
   img: string;
 
-  @Column({nullable: true, type: "date"})
-  date: string;
+  @CreateDateColumn()
+  date: Date;
 
-  @ManyToOne(() => Users)
-  @JoinColumn()
-  user: number;
+  @ManyToOne(() => Users, (user) => user.posts, { onDelete: 'CASCADE' })
+  user: Users;
+
+  @Column({
+    type: "enum",
+    enum: Category,
+    default: Category.ART
+  })
+  cat: string
 }

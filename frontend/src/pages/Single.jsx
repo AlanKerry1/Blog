@@ -1,31 +1,67 @@
-import React from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import Edit from "../img/edit.png";
 import Delete from "../img/delete.png";
-import {Link} from "react-router-dom";
+import {Link, useLocation, useNavigate} from "react-router-dom";
 import Menu from '../components/Menu';
+import axios from 'axios';
+import moment from "moment";
+import { AuthContext } from '../context/authContext';
 
 const Single = () => {
+    const [post, setPost] = useState({});
+    const location = useLocation();
+    const navigate = useNavigate();
+    const postId = location.pathname.split("/")[2];
+    const {currentUser} = useContext(AuthContext);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const res = await axios.get(`/posts/${postId}`);
+                setPost(res.data);
+            } catch (e) {
+                console.log(e);
+            }
+        };
+        fetchData();
+    }, [postId]);
+
+    const handleDelete = async () => {
+        try {
+            await axios.delete(`/posts/${postId}`);
+            navigate("/");
+        } catch (e) {
+            console.log(e);
+        }
+    }
+
+    const getText = (html) =>{
+        const doc = new DOMParser().parseFromString(html, "text/html")
+        return doc.body.textContent
+    }
+
     return (
         <div className="single">
             <div className="content">
-                <img src="https://img.freepik.com/premium-photo/squirrel-sitting-tree-branch_1048944-30371835.jpg?w=900" alt="" />
+                <img src={`/static/${post.img}`} alt="" />
                 <div className="user">
-                    <img src="https://shapka-youtube.ru/wp-content/uploads/2024/08/avatarka-ananasa.jpg" alt="" />
+                    {post.user?.avatar && 
+                        <img src={post.user.avatar} alt="" />}
                     <div className="info">
-                        <span>Alan</span>
-                        <p>Posted 2 days ago</p>
+                        <span>{post.user?.username}</span>
+                        <p>Posted {moment(post.date).fromNow()}</p>
                     </div>
-                    <div className="edit">
-                        <Link to={`/write?edit=2`}>
+                    {currentUser?.username === post.user?.username && <div className="edit">
+                        <Link to={`/write?edit=2`} state={post}>
                             <img src={Edit} alt="" />
                         </Link>
-                        <img src={Delete} alt="" />
-                    </div>
+                        <img onClick={handleDelete} src={Delete} alt="" />
+                    </div>}
                 </div>
-                <h1>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</h1>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur volutpat porttitor urna, eu tincidunt nibh finibus non. Nunc imperdiet, arcu a convallis feugiat, turpis arcu vehicula augue, eu placerat purus libero ac neque. Donec nec ullamcorper quam, ut convallis nunc. Donec lobortis in nunc in pulvinar. Nulla euismod ante et venenatis malesuada. Nulla molestie sapien id tincidunt faucibus. Nullam in felis leo. Suspendisse laoreet nisl commodo ante congue vulputate. Aliquam nisl ipsum, molestie nec cursus ut, feugiat in mi. Aliquam ut hendrerit nunc. Vestibulum id cursus enim, sed sagittis dui. Nam nec ipsum quam. Ut sed dui dui. Pellentesque vitae tristique dui. Quisque rutrum tortor et libero ullamcorper, ut viverra est mollis. Mauris tortor nunc, convallis nec risus id, mollis bibendum lacus.</p>
+                <h1>{post.title}</h1>
+                <p>{getText(post.desc)}</p>
             </div>
-            <Menu/>
+            <Menu cat={post.cat} currentId={post.id}/>
         </div>
     );
 }

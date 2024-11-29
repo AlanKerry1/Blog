@@ -7,6 +7,6 @@ export class LogDto {
     readonly email: string;
     
     @IsString({message: "Должно быть строкой"})
-    @Length(4, Number.MAX_VALUE, {message: "Не меньше 4 символов"})
+    @Length(4, Number.MAX_VALUE, {message: "Пароль не меньше 4 символов"})
     readonly password: string;
 }

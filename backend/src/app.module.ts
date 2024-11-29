@@ -6,9 +6,17 @@ import { AuthModule } from './auth/auth.module';
 import { Tokens } from './auth/entities/tokens.model';
 import { ConfigModule } from '@nestjs/config';
 import { Users } from './auth/entities/users.model';
+import { FilesService } from './files/files.service';
+import { FilesModule } from './files/files.module';
+import { ServeStaticModule } from '@nestjs/serve-static';
+import * as path from "path";
 
 @Module({
   imports: [
+    ServeStaticModule.forRoot({
+      rootPath: path.resolve(__dirname, 'static'),
+      serveRoot: "/api/static/"
+    }),
     ConfigModule.forRoot({
       envFilePath: '.env',
     }),
@@ -24,6 +32,8 @@ import { Users } from './auth/entities/users.model';
     }),
     PostsModule,
     AuthModule,
+    FilesModule,
   ],
+  providers: [],
 })
 export class AppModule {}
