@@ -30,7 +30,7 @@ Web applications for creating blogs
 
 ### 🔧 Regular run
 
-> Requirements: Node.js, PostgreSQL, RabbitMQ
+> Requirements: Node.js, PostgreSQL
 
 #### 🗄️ Backend
 
