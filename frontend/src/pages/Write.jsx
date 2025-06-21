@@ -32,9 +32,9 @@ const Write = () => {
                 console.log(elem);
             }
 
-            const res = state ? await axios.put("/posts/", formData, {
+            const res = state ? await axios.put("http://alankerry.ru:5000/posts/", formData, {
                 headers: { Authorization: `Bearer ${accessToken}` },
-            }) : await axios.post("/posts/", formData, {
+            }) : await axios.post("http://alankerry.ru:5000/posts/", formData, {
                 headers: { Authorization: `Bearer ${accessToken}` },
             });
 
