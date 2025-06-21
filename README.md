@@ -21,9 +21,7 @@ Web applications for creating blogs
 - ![Node.js](https://img.shields.io/badge/Node.js-18.x-green?logo=node.js)
 - ![NestJS](https://img.shields.io/badge/NestJS-E0234E.svg?&logo=nestjs&logoColor=white)
 - ![TypeScript](https://img.shields.io/badge/TypeScript-%23007ACC.svg?&logo=typescript&logoColor=white)
-- ![MySQL](https://img.shields.io/badge/PostgreSQL-%23336791.svg?&logo=postgresql&logoColor=white) + ![TypeORM](https://img.shields.io/badge/TypeORM-262627.svg?color=blue)
-- ![MySQL](https://img.shields.io/badge/MySQL-✔️-blue?logo=mysql)
-- ![MySQL Version](https://img.shields.io/badge/MySQL-8.0-blue)
+- ![MySQL](https://img.shields.io/badge/MySQL-%234479A1.svg?&logo=mysql&logoColor=white) + ![TypeORM](https://img.shields.io/badge/TypeORM-262627.svg?color=blue)
 - ![Docker](https://img.shields.io/badge/Docker-%230db7ed.svg?&logo=docker&logoColor=white) + docker-compose – for easy deployment
 
 ---
