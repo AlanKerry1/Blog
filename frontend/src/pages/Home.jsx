@@ -11,7 +11,7 @@ const Home = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const res = await axios.get(`http://alankerry.ru:5000/posts${cat}`);
+                const res = await axios.get(`http://alankerry.ru:4000/api/posts${cat}`);
                 setPosts(res.data);
             } catch (e) {
                 console.log(e);
@@ -31,7 +31,7 @@ const Home = () => {
                 {posts.map((post) => (
                     <div className="post" key={post.id}>
                         <div className="img">
-                            <img src={`/static/${post.img}`} alt="" />
+                            <img src={`http://alankerry.ru:4000/api/static/${post.img}`} alt="" />
                         </div>
                         <div className="content">
                             <Link className="link" to={`/posts/${post.id}`}>

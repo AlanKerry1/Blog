@@ -17,7 +17,7 @@ const Single = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const res = await axios.get(`http://alankerry.ru:5000/posts/${postId}`);
+                const res = await axios.get(`http://alankerry.ru:4000/api/posts/${postId}`);
                 setPost(res.data);
             } catch (e) {
                 console.log(e);
@@ -28,7 +28,7 @@ const Single = () => {
 
     const handleDelete = async () => {
         try {
-            await axios.delete(`http://alankerry.ru:5000/posts/${postId}`);
+            await axios.delete(`http://alankerry.ru:4000/api/posts/${postId}`);
             navigate("/");
         } catch (e) {
             console.log(e);
@@ -43,7 +43,7 @@ const Single = () => {
     return (
         <div className="single">
             <div className="content">
-                <img src={`/static/${post.img}`} alt="" />
+                <img src={`http://alankerry.ru:4000/api/static/${post.img}`} alt="" />
                 <div className="user">
                     {post.user?.avatar && 
                         <img src={post.user.avatar} alt="" />}

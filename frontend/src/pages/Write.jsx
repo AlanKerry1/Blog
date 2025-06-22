@@ -28,13 +28,9 @@ const Write = () => {
                 formData.append("id", state.id);
             }
 
-            for (let elem of formData.entries()) {
-                console.log(elem);
-            }
-
-            const res = state ? await axios.put("http://alankerry.ru:5000/posts/", formData, {
+            const res = state ? await axios.put("http://alankerry.ru:4000/api/posts/", formData, {
                 headers: { Authorization: `Bearer ${accessToken}` },
-            }) : await axios.post("http://alankerry.ru:5000/posts/", formData, {
+            }) : await axios.post("http://alankerry.ru:4000/api/posts/", formData, {
                 headers: { Authorization: `Bearer ${accessToken}` },
             });
 

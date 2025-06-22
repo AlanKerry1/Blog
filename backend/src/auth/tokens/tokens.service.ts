@@ -48,9 +48,7 @@ export class TokensService {
     }
 
     async saveToken(userId, refreshToken) {
-        console.log(userId);
         const tokenData = await this.tokenRep.find({ where: { user: { id: userId } } });
-        console.log(tokenData);
         if (tokenData.length) {
             await this.tokenRep.update({user: {id: userId}}, {...tokenData[0], refreshToken});
             return await this.tokenRep.findOne({where: {user: {id: userId}}});

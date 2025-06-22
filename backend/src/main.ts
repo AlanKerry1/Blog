@@ -6,9 +6,13 @@ import { ValidationPipe } from '@nestjs/common';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+  app.enableCors({
+    origin: 'http://alankerry.ru',
+    credentials: true,
+  });
   app.setGlobalPrefix('api');
   app.use(cookieParser())
   app.useGlobalPipes(new ValidationPipe());
-  await app.listen(4000);
+  app.listen(4000, '0.0.0.0');
 }
 bootstrap();

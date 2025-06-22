@@ -9,14 +9,13 @@ export const AuthContextProvider = ({children}) => {
     const [accessToken, setAccessToken] = useState(localStorage.getItem("token") || null);
 
     const login = async (inputs) => {
-        const res = await axios.post("/auth/login", inputs);
+        const res = await axios.post("http://alankerry.ru:4000/api/auth/login", inputs);
         setCurrentUser(res.data.user);
-        console.log(res.data.accessToken);
         setAccessToken(res.data.accessToken);
     }
 
     const logout = async () => {
-        await axios.post("/auth/logout");
+        await axios.post("http://alankerry.ru:4000/api/auth/logout");
         setCurrentUser(null);
         setAccessToken(null);
     }

@@ -1,21 +1,24 @@
 services:
   db:
-    image: postgres:15-alpine
+    image: mysql:8.0
     restart: always
-    env_file:
-      - backend/.env
-    volumes:
-      - pgdata:/var/lib/postgresql/data
+    environment:
+      MYSQL_ROOT_PASSWORD: root    # обязательно укажи свой пароль
+      MYSQL_DATABASE: blog                  # опционально — создаст базу при старте                           # опционально — создает пользователя
+      MYSQL_PASSWORD: root               # пароль для пользователя
+    command: --default-authentication-plugin=mysql_native_password --bind-address=0.0.0.0
     ports:
-      - "5432:5432"
+      - "3306:3306"   # проброс с хоста 3307 на 3306 контейнера
+    volumes:
+      - mysql-data:/var/lib/mysql   # для сохранения данных при перезапуске
 
   backend:
     build: ./backend
     restart: always
     env_file:
-      - backend/.env
+      - .env
     ports:
-      - "5000:5000"
+      - "4000:4000"
     depends_on:
       - db
 
@@ -28,4 +31,4 @@ services:
       - backend
 
 volumes:
-  pgdata:
+  mysql-data:

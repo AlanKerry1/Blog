@@ -9,7 +9,7 @@ const Menu = ({cat, currentId}) => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const res = await axios.get(`/posts/?cat=${cat}`);
+                const res = await axios.get(`http://alankerry.ru:4000/api/posts/?cat=${cat}`);
                 setPosts(res.data);
             } catch (e) {
                 console.log(e);
@@ -23,7 +23,7 @@ const Menu = ({cat, currentId}) => {
             <h1>Other posts you may like</h1>
             {posts.map(post => post.id !== currentId && (
                 <div className="post" key={post.id}>
-                    <img src={`/static/${post.img}`} alt="" />
+                    <img src={`http://alankerry.ru:4000/api/static/${post.img}`} alt="" />
                     <h2>{post.title}</h2>
                     <button onClick={() => {navigate(`/posts/${post.id}`)}}>Read More</button>
                 </div>

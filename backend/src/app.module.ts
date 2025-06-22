@@ -22,7 +22,7 @@ import * as path from "path";
     }),
     TypeOrmModule.forRoot({
       type: 'mysql',
-      host: 'localhost',
+      host: 'blog-db-1',
       port: 3306,
       username: 'root',
       password: 'root',
