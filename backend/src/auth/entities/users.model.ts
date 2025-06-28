@@ -8,7 +8,7 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { Tokens } from './tokens.model';
-import { Posts } from 'src/posts/entities/posts.model';
+import { Posts } from '../../posts/entities/posts.model';
 
 @Entity()
 export class Users {

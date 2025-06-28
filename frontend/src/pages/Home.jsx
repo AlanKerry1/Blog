@@ -1,17 +1,19 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
+import { ConfigContext } from "../context/configContext";
 
 const Home = () => {
     const [posts, setPosts] = useState([]);
     const navigate = useNavigate();
+    const config = useContext(ConfigContext);
 
     const cat = useLocation().search;
 
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const res = await axios.get(`http://alankerry.ru:4000/api/posts${cat}`);
+                const res = await axios.get(`${config.REACT_APP_API_URL}/posts${cat}`);
                 setPosts(res.data);
             } catch (e) {
                 console.log(e);
@@ -31,7 +33,7 @@ const Home = () => {
                 {posts.map((post) => (
                     <div className="post" key={post.id}>
                         <div className="img">
-                            <img src={`http://alankerry.ru:4000/api/static/${post.img}`} alt="" />
+                            <img src={`${config.REACT_APP_API_URL}/static/${post.img}`} alt="" />
                         </div>
                         <div className="content">
                             <Link className="link" to={`/posts/${post.id}`}>

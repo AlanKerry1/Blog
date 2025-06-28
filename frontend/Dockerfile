@@ -16,6 +16,13 @@ FROM nginx:stable-alpine
 
 COPY --from=build /app/build /usr/share/nginx/html
 
+# Копируем entrypoint скрипт в контейнер
+COPY entrypoint.sh /entrypoint.sh
+
+# Делаем скрипт исполняемым
+RUN chmod +x /entrypoint.sh
+
 EXPOSE 80
 
-CMD ["nginx", "-g", "daemon off;"]
+# Запускаем entrypoint, который создаст config.json и поднимет nginx
+ENTRYPOINT ["/entrypoint.sh"]

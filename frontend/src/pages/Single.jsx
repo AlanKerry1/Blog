@@ -6,6 +6,7 @@ import Menu from '../components/Menu';
 import axios from 'axios';
 import moment from "moment";
 import { AuthContext } from '../context/authContext';
+import { ConfigContext } from '../context/configContext';
 
 const Single = () => {
     const [post, setPost] = useState({});
@@ -13,11 +14,12 @@ const Single = () => {
     const navigate = useNavigate();
     const postId = location.pathname.split("/")[2];
     const {currentUser} = useContext(AuthContext);
+    const config = useContext(ConfigContext);
 
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const res = await axios.get(`http://alankerry.ru:4000/api/posts/${postId}`);
+                const res = await axios.get(`${config.REACT_APP_API_URL}/posts/${postId}`);
                 setPost(res.data);
             } catch (e) {
                 console.log(e);
@@ -28,7 +30,7 @@ const Single = () => {
 
     const handleDelete = async () => {
         try {
-            await axios.delete(`http://alankerry.ru:4000/api/posts/${postId}`);
+            await axios.delete(`${config.REACT_APP_API_URL}/posts/${postId}`);
             navigate("/");
         } catch (e) {
             console.log(e);
@@ -43,7 +45,7 @@ const Single = () => {
     return (
         <div className="single">
             <div className="content">
-                <img src={`http://alankerry.ru:4000/api/static/${post.img}`} alt="" />
+                <img src={`${config.REACT_APP_API_URL}/static/${post.img}`} alt="" />
                 <div className="user">
                     {post.user?.avatar && 
                         <img src={post.user.avatar} alt="" />}

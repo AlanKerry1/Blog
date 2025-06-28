@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import { ConfigContext } from "../context/configContext";
 
 const Register = () => {
     const [inputs, setInputs] = useState({
@@ -10,6 +11,7 @@ const Register = () => {
         password: "",
     });
     const [err, setError] = useState(null);
+    const config = useContext(ConfigContext);
 
     const navigate = useNavigate();
 
@@ -20,7 +22,7 @@ const Register = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            await axios.post("http://alankerry.ru:4000/api/auth/register", inputs);
+            await axios.post(`${config.REACT_APP_API_URL}/auth/register`, inputs);
             navigate("/login");
         } catch (err) {
             setError(err.response.data);

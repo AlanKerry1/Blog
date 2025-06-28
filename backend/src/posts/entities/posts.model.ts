@@ -1,4 +1,4 @@
-import { Users } from 'src/auth/entities/users.model';
+import { Users } from '../../auth/entities/users.model';
 import { Entity, Column, PrimaryGeneratedColumn, OneToOne, JoinColumn, ManyToOne, CreateDateColumn } from 'typeorm';
 
 enum Category {
