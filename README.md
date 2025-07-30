@@ -4,7 +4,7 @@ Web applications for creating blogs
 
 ## 🚀 Demo
 
-🌐 Coming soon...
+🌐 https://alankerry.ru:7771
 
 ---
 
