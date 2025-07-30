@@ -72,6 +72,6 @@ docker-compose up --build
 
 ---
 
-##👨‍💻 Author
+## 👨‍💻 Author
 
 GitHub: [@AlanKerry1](https://github.com/AlanKerry1)
